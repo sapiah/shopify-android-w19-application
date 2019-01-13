@@ -2,35 +2,28 @@ package com.example.sachinapiah.shopify_android_w19_application.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sachinapiah.shopify_android_w19_application.R
 import com.example.sachinapiah.shopify_android_w19_application.adapter.CollectionAdapter
-import kotlinx.android.synthetic.main.collection_list.*
+import kotlinx.android.synthetic.main.collection_details_list.*
 import java.util.*
-import androidx.recyclerview.widget.DividerItemDecoration
-import kotlinx.android.synthetic.main.collection_list_recycler_view_item.*
 
-
-class CollectionActivity : AppCompatActivity() {
+class CollectionDetailActivity : AppCompatActivity() {
 
     private val items: ArrayList<String> = ArrayList()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.collection_list)
+        setContentView(R.layout.collection_details_list)
+        addItemsDetails()
 
-        addItems()
-
-        rv_collection.layoutManager = LinearLayoutManager(this)
-        rv_collection.adapter = CollectionAdapter(items, this)
-        rv_collection.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-
-
+        rv_collection_detail.layoutManager = LinearLayoutManager(this)
+        rv_collection_detail.adapter = CollectionAdapter(items, this)
+        rv_collection_detail.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
-    fun addItems() {
+    fun addItemsDetails() {
         items.add("collection 1")
         items.add("collection 2")
         items.add("collection 3")
@@ -46,5 +39,4 @@ class CollectionActivity : AppCompatActivity() {
         items.add("collection 14")
         items.add("collection 15")
     }
-
 }

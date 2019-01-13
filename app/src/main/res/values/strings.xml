@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">shopify-android-w19-application</string>
+    <string name="collection_image">Collection Image</string>
 </resources>
