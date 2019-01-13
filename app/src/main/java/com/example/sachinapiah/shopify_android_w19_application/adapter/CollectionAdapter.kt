@@ -1,12 +1,15 @@
 package com.example.sachinapiah.shopify_android_w19_application.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sachinapiah.shopify_android_w19_application.R
+import com.example.sachinapiah.shopify_android_w19_application.activity.CollectionDetailActivity
 import kotlinx.android.synthetic.main.collection_list_recycler_view_item.view.*
 import java.util.*
 
@@ -35,9 +38,22 @@ abstract class CollectionViewHolder(view: View) : RecyclerView.ViewHolder(view) 
 }
 
 class CollectionViewHolderValid(view: View) : CollectionViewHolder(view) {
+    private val context = itemView.context
     private val tvCollectionTitle: TextView = view.tv_collection_title
+
+    init {
+        itemView.setOnClickListener {
+            Log.d("RecyclerView", "Collection item CLICK!")
+            goToCollectionDetailActivity()
+        }
+    }
 
     override fun onBind(item: String) {
         tvCollectionTitle.text = item
     }
+
+    private fun goToCollectionDetailActivity() {
+        context?.startActivity(Intent(context, CollectionDetailActivity::class.java))
+    }
 }
+

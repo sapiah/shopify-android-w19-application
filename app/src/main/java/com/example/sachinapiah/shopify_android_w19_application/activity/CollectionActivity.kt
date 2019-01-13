@@ -2,6 +2,7 @@ package com.example.sachinapiah.shopify_android_w19_application.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sachinapiah.shopify_android_w19_application.R
 import com.example.sachinapiah.shopify_android_w19_application.adapter.CollectionAdapter
@@ -12,7 +13,6 @@ class CollectionActivity : AppCompatActivity() {
 
     private val items: ArrayList<String> = ArrayList()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.collection_list)
@@ -21,6 +21,7 @@ class CollectionActivity : AppCompatActivity() {
 
         rv_collections.layoutManager = LinearLayoutManager(this)
         rv_collections.adapter = CollectionAdapter(items, this)
+        rv_collections.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
     fun addItems() {
