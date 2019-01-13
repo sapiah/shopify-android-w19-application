@@ -7,9 +7,6 @@ import com.example.sachinapiah.shopify_android_w19_application.R
 import com.example.sachinapiah.shopify_android_w19_application.adapter.CollectionAdapter
 import kotlinx.android.synthetic.main.collection_list.*
 import java.util.*
-import androidx.recyclerview.widget.DividerItemDecoration
-import kotlinx.android.synthetic.main.collection_list_recycler_view_item.*
-
 
 class CollectionActivity : AppCompatActivity() {
 
@@ -22,12 +19,8 @@ class CollectionActivity : AppCompatActivity() {
 
         addItems()
 
-        rv_collection.layoutManager = LinearLayoutManager(this)
-        rv_collection.adapter = CollectionAdapter(items, this)
-        rv_collection.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-
-
+        rv_collections.layoutManager = LinearLayoutManager(this)
+        rv_collections.adapter = CollectionAdapter(items, this)
     }
 
     fun addItems() {
