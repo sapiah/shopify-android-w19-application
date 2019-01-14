@@ -7,4 +7,4 @@ data class ProductItem(
     @SerializedName("id") val productItemId: Long,
     @SerializedName("title") val productItemTitle: String,
     @SerializedName("variants") val productItemVariants: List<ProductVariants>
-): Serializable
+) : Serializable

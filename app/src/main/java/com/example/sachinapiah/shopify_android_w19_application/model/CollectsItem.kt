@@ -6,4 +6,4 @@ import java.io.Serializable
 data class CollectsItem(
     @SerializedName("id") val collectsItemId: Long,
     @SerializedName("product_id") val collectsItemProductId: String
-): Serializable
+) : Serializable

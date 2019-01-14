@@ -5,4 +5,4 @@ import java.io.Serializable
 
 data class CollectionItem(
     @SerializedName("custom_collections") val customCollectionItems: List<CustomCollectionItems>
-): Serializable
+) : Serializable

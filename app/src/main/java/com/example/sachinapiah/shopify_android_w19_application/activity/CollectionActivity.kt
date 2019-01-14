@@ -1,5 +1,6 @@
 package com.example.sachinapiah.shopify_android_w19_application.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,7 +19,7 @@ import java.util.*
 class CollectionActivity : AppCompatActivity() {
 
     private val items: ArrayList<String> = ArrayList()
-    var collectionRetrofitService: CollectionRetrofitService? = null
+    private var collectionRetrofitService: CollectionRetrofitService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,30 +32,30 @@ class CollectionActivity : AppCompatActivity() {
         collectionItems?.enqueue(object : Callback<CollectionItem> {
 
             override fun onResponse(call: Call<CollectionItem>, response: Response<CollectionItem>) {
+                val context = this@CollectionActivity
                 val collectionItemResponse = response.body()
-                System.out.println(collectionItemResponse.toString())
                 addCollectionItems(collectionItemResponse)
+                loadRecyclerView(context)
             }
 
             override fun onFailure(call: Call<CollectionItem>, t: Throwable) {
                 System.out.println(t.localizedMessage)
-                //Handle failure
             }
         })
 
-        rv_collections.layoutManager = LinearLayoutManager(this)
-        rv_collections.adapter = CollectionAdapter(items, this)
-        rv_collections.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
     }
 
     fun addCollectionItems(collectionItem: CollectionItem?) {
-//        collectionItem
-//        collectionItem?.let {
-//
-//            it.forEach { collectionItem ->
-//                items.add(collectionItem.collectionItemTitle)
-//            }
-//        }
+        collectionItem?.customCollectionItems?.forEach {
+            items.add(it.collectionItemTitle)
+        }
+    }
+
+    fun loadRecyclerView(context: Context) {
+        rv_collections.layoutManager = LinearLayoutManager(context)
+        rv_collections.adapter = CollectionAdapter(items, context)
+        rv_collections.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
 }

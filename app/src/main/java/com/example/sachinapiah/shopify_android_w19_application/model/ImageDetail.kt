@@ -5,4 +5,4 @@ import java.io.Serializable
 
 data class ImageDetail(
     @SerializedName("src") val imageUrl: String
-): Serializable
+) : Serializable
