@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sachinapiah.shopify_android_w19_application.Constants
 import com.example.sachinapiah.shopify_android_w19_application.R
 import com.example.sachinapiah.shopify_android_w19_application.adapter.CollectionAdapter
 import com.example.sachinapiah.shopify_android_w19_application.data.CollectionItemData
@@ -30,7 +31,8 @@ class CollectionActivity : AppCompatActivity() {
 
         collectionRetrofitService = RetrofitService().getClient()?.create(CollectionRetrofitService::class.java)
 
-        val collectionItemsResponse = collectionRetrofitService?.getCollectionItems()
+        val collectionItemsResponse =
+            collectionRetrofitService?.getCollectionItems(Constants.PARAM_PAGE, Constants.PARAM_ACCESS_TOKEN)
         collectionItemsResponse?.enqueue(object : Callback<CollectionItem> {
 
             override fun onResponse(call: Call<CollectionItem>, response: Response<CollectionItem>) {
