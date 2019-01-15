@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sachinapiah.shopify_android_w19_application.R
 import com.example.sachinapiah.shopify_android_w19_application.adapter.CollectionAdapter
+import com.example.sachinapiah.shopify_android_w19_application.data.CollectionItemData
 import com.example.sachinapiah.shopify_android_w19_application.model.CollectionItem
 import com.example.sachinapiah.shopify_android_w19_application.networking.CollectionRetrofitService
 import com.example.sachinapiah.shopify_android_w19_application.networking.RetrofitService
@@ -19,6 +20,7 @@ import java.util.*
 class CollectionActivity : AppCompatActivity() {
 
     private val items: ArrayList<String> = ArrayList()
+    private val collectionItems: ArrayList<CollectionItemData> = ArrayList()
     private var collectionRetrofitService: CollectionRetrofitService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +30,13 @@ class CollectionActivity : AppCompatActivity() {
 
         collectionRetrofitService = RetrofitService().getClient()?.create(CollectionRetrofitService::class.java)
 
-        val collectionItems = collectionRetrofitService?.getCollectionItems()
-        collectionItems?.enqueue(object : Callback<CollectionItem> {
+        val collectionItemsResponse = collectionRetrofitService?.getCollectionItems()
+        collectionItemsResponse?.enqueue(object : Callback<CollectionItem> {
 
             override fun onResponse(call: Call<CollectionItem>, response: Response<CollectionItem>) {
                 val context = this@CollectionActivity
-                val collectionItemResponse = response.body()
-                addCollectionItems(collectionItemResponse)
+                val collectionItemResponseBody = response.body()
+                addCollectionItems(collectionItemResponseBody)
                 loadRecyclerView(context)
             }
 
@@ -43,18 +45,24 @@ class CollectionActivity : AppCompatActivity() {
             }
         })
 
-
     }
 
-    fun addCollectionItems(collectionItem: CollectionItem?) {
-        collectionItem?.customCollectionItems?.forEach {
+    fun addCollectionItems(collectionItemResponseBody: CollectionItem?) {
+        collectionItemResponseBody?.customCollectionItems?.forEach {
+            collectionItems.add(
+                CollectionItemData(
+                    it.collectionItemId,
+                    it.collectionItemTitle,
+                    it.imageDetail.imageUrl
+                )
+            )
             items.add(it.collectionItemTitle)
         }
     }
 
     fun loadRecyclerView(context: Context) {
         rv_collections.layoutManager = LinearLayoutManager(context)
-        rv_collections.adapter = CollectionAdapter(items, context)
+        rv_collections.adapter = CollectionAdapter(collectionItems, context)
         rv_collections.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 

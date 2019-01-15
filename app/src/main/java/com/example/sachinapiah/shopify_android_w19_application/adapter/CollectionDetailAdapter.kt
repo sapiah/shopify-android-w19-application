@@ -8,23 +8,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sachinapiah.shopify_android_w19_application.R
-import com.example.sachinapiah.shopify_android_w19_application.model.CollectionDetailItem
+import com.example.sachinapiah.shopify_android_w19_application.data.CollectionItemDetailData
 import com.example.sachinapiah.shopify_android_w19_application.util.insertCollectionImage
 import kotlinx.android.synthetic.main.collection_details_recycler_view_item.view.*
 import java.util.*
 
 
-class CollectionDetailAdapter(private val items: ArrayList<CollectionDetailItem>, context: Context) :
+class CollectionDetailAdapter(private val itemDetailData: ArrayList<CollectionItemDetailData>, context: Context) :
     RecyclerView.Adapter<CollectionDetailViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
 
     override fun getItemCount(): Int {
-        return items.size
+        return itemDetailData.size
     }
 
     override fun onBindViewHolder(holder: CollectionDetailViewHolder, position: Int) {
-        holder.onBind(items[position])
+        holder.onBind(itemDetailData[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionDetailViewHolder {
@@ -34,7 +34,7 @@ class CollectionDetailAdapter(private val items: ArrayList<CollectionDetailItem>
 }
 
 abstract class CollectionDetailViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun onBind(item: CollectionDetailItem)
+    abstract fun onBind(itemDetailData: CollectionItemDetailData)
 
 }
 
@@ -45,11 +45,11 @@ class CollectionDetailViewHolderValid(view: View) : CollectionDetailViewHolder(v
     private val tvProductCount: TextView = view.tv_collection_item_detail_count
     private val ivCollectionImage: ImageView = view.iv_collection_item_detail
 
-    override fun onBind(item: CollectionDetailItem) {
-        tvProductTitle.text = item.productTitle
-        tvCollectionTitle.text = item.collectionTitle
-        tvProductCount.text = item.productCount.toString()
-        ivCollectionImage.insertCollectionImage(item.collectionImage)
+    override fun onBind(itemDetailData: CollectionItemDetailData) {
+        tvProductTitle.text = itemDetailData.collectionItemTitle
+        tvCollectionTitle.text = itemDetailData.collectionItemTitle
+        tvProductCount.text = itemDetailData.productItemCount.toString()
+        ivCollectionImage.insertCollectionImage(itemDetailData.collectionItemImageUrl)
     }
 }
 

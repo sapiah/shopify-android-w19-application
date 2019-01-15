@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class CollectionItem(
-    @SerializedName("custom_collections") val customCollectionItems: List<CustomCollectionItems>
+    @SerializedName("custom_collections") val customCollectionItems: List<CustomCollectionItem>
 ) : Serializable
