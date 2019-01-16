@@ -11,10 +11,10 @@ import com.example.sachinapiah.shopify_android_w19_application.adapter.Collectio
 import com.example.sachinapiah.shopify_android_w19_application.data.CollectionItemData
 import com.example.sachinapiah.shopify_android_w19_application.data.CollectionItemDetailData
 import com.example.sachinapiah.shopify_android_w19_application.model.Collects
-import com.example.sachinapiah.shopify_android_w19_application.model.ProductVariants
 import com.example.sachinapiah.shopify_android_w19_application.model.Products
 import com.example.sachinapiah.shopify_android_w19_application.networking.CallsRetrofitService
 import com.example.sachinapiah.shopify_android_w19_application.networking.RetrofitService
+import com.example.sachinapiah.shopify_android_w19_application.util.CollectionDetailActivityUtil
 import kotlinx.android.synthetic.main.collection_details_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +50,7 @@ class CollectionDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Collects>, response: Response<Collects>) {
                 lateinit var productIdsUrlSnippet: String
                 val collectsResponseBody = response.body()
-                productIdsUrlSnippet = getProductItemIds(collectsResponseBody)
+                productIdsUrlSnippet = CollectionDetailActivityUtil.getProductItemIds(collectsResponseBody)
                 getProductItemDetails(productIdsUrlSnippet)
             }
 
@@ -101,7 +101,7 @@ class CollectionDetailActivity : AppCompatActivity() {
                     CollectionItemDetailData(
                         productItem.productItemTitle,
                         "Collection - " + collectionItemData.collectionItemTitle,
-                        "Qty - " + getProductVariantQty(productItem.productItemVariants).toString(),
+                        "Qty - " + CollectionDetailActivityUtil.getProductVariantQty(productItem.productItemVariants).toString(),
                         collectionItemData.collectionItemImageUrl
                     )
 
@@ -110,38 +110,6 @@ class CollectionDetailActivity : AppCompatActivity() {
         }
     }
 
-    /***
-     * Purpose: Iterate through the product variants and sum the inventory quantity per variant of a particular product
-     * which may or may not contain multiple variants
-     *
-     * Returns: Int -> Sum of inventory quantity of the several variants of an individual product
-     */
-    private fun getProductVariantQty(productItemVariants: List<ProductVariants>): Int {
-        var count = 0
-        productItemVariants.forEach { variant ->
-            count += variant.ProductVariantsInventoryQuantity
-
-        }
-        return count
-    }
-
-    /***
-     * Purpose: Iterate through the collects and append the product IDs into a string format separated by commas for
-     * constructing the param during the retrofit call
-     *
-     * Returns: String -> product Ids, separated by commas
-     */
-    fun getProductItemIds(collectsResponseBody: Collects?): String {
-        lateinit var productIdsSnippet: String
-        collectsResponseBody?.collects?.forEachIndexed { index, it ->
-            productIdsSnippet = if (index == 0) {
-                it.collectProductItemProductId
-            } else {
-                productIdsSnippet + "," + it.collectProductItemProductId
-            }
-        }
-        return productIdsSnippet
-    }
 
     fun loadRecyclerView(context: Context) {
         rv_collection_detail.layoutManager = LinearLayoutManager(context)
