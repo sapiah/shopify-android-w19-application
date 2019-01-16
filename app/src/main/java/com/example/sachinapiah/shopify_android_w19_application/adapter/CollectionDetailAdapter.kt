@@ -40,15 +40,15 @@ abstract class CollectionDetailViewHolder(view: View) : RecyclerView.ViewHolder(
 
 class CollectionDetailViewHolderValid(view: View) : CollectionDetailViewHolder(view) {
 
-    private val tvProductTitle: TextView = view.tv_collection_item_detail_title
+    private val tvProductTitle: TextView = view.tv_product_item_title
     private val tvCollectionTitle: TextView = view.tv_collection_item_title
-    private val tvProductCount: TextView = view.tv_collection_item_detail_count
+    private val tvProductCount: TextView = view.tv_product_item_variants_count
     private val ivCollectionImage: ImageView = view.iv_collection_item_detail
 
     override fun onBind(itemDetailData: CollectionItemDetailData) {
-        tvProductTitle.text = itemDetailData.collectionItemTitle
+        tvProductTitle.text = itemDetailData.productItemTitle
         tvCollectionTitle.text = itemDetailData.collectionItemTitle
-        tvProductCount.text = itemDetailData.productItemCount.toString()
+        tvProductCount.text = itemDetailData.productItemCount
         ivCollectionImage.insertCollectionImage(itemDetailData.collectionItemImageUrl)
     }
 }

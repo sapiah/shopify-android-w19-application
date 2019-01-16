@@ -6,6 +6,6 @@ import java.io.Serializable
 data class CollectionItemDetailData(
     val productItemTitle: String,
     val collectionItemTitle: String,
-    val productItemCount: Int,
+    val productItemCount: String,
     val collectionItemImageUrl: String
 ) : Serializable

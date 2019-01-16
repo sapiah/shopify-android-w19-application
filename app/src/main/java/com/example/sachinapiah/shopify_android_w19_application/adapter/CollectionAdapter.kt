@@ -2,7 +2,6 @@ package com.example.sachinapiah.shopify_android_w19_application.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,6 @@ class CollectionViewHolderValid(view: View) : CollectionViewHolder(view) {
 
     init {
         itemView.setOnClickListener {
-            Log.d("RecyclerView", "Collection item CLICK!")
             goToCollectionDetailActivity()
         }
     }

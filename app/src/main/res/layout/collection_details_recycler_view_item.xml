@@ -17,7 +17,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             tools:srcCompat="@tools:sample/avatars"/>
     <TextView
-            android:id="@+id/tv_collection_item_detail_title"
+            android:id="@+id/tv_product_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/collection_detail_item_title_padding"
@@ -39,7 +39,7 @@
             tools:text="Collection Title"/>
 
     <TextView
-            android:id="@+id/tv_collection_item_detail_count"
+            android:id="@+id/tv_product_item_variants_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/collection_item_detail_text_size_min"
